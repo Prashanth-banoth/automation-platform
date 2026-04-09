@@ -1,0 +1,19 @@
+<h2>Expert Register</h2>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <input type="text" name="name" placeholder="Name" required><br><br>
+    <input type="email" name="email" placeholder="Email" required><br><br>
+    <input type="text" name="skill" placeholder="Skill (zapier, n8n)" required><br><br>
+
+    <textarea name="solution" placeholder="Explain your approach" required></textarea><br><br>
+
+    <select name="gender" required>
+        <option value="">Select Gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+    </select><br><br>
+
+    <button type="submit">Register as Expert</button>
+</form>

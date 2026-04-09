@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stripe Payment</title>
+</head>
+<body>
+
+<h2>Pay ₹500 to {{ expert.name }}</h2>
+
+<form method="POST" action="{% url 'payment_success' expert.id %}">
+    {% csrf_token %}
+
+    <label>Card Number</label><br>
+    <input type="text" placeholder="4242 4242 4242 4242" required><br><br>
+
+    <label>Expiry</label><br>
+    <input type="text" placeholder="12/25" required><br><br>
+
+    <label>CVV</label><br>
+    <input type="text" placeholder="123" required><br><br>
+
+    <label>PIN</label><br>
+    <input type="text" placeholder="0000" required><br><br>
+
+    <button type="submit">Pay ₹500</button>
+</form>
+
+</body>
+</html>

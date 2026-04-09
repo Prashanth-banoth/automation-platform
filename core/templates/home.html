@@ -1,0 +1,63 @@
+{% if request.session.user %}
+    <p>Welcome {{ request.session.user }} 👋</p>
+    <a href="/logout/">Logout</a>
+{% else %}
+    <a href="/login/">Login</a>
+    <a href="/register-expert/">Register as Expert</a>
+{% endif %}
+
+
+{% if messages %}
+    {% for message in messages %}
+        <p style="color:green; font-weight:bold;">
+            {{ message }}
+        </p>
+    {% endfor %}
+{% endif %}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Automation Platform</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container mt-5">
+
+    <h1 class="text-center mb-4">🤖 Automation Platform</h1>
+
+    <form method="POST" action="{% url 'search_experts' %}">
+        {% csrf_token %}
+        <input type="text" name="problem">
+        <button type="submit">Search</button>
+    </form>
+
+    <hr>
+
+    <h3 class="mt-4">👨‍💻 Experts</h3>
+
+    <div class="row">
+        {% for expert in experts %}
+            <div class="col-md-4">
+                <div class="card p-3 mb-3 shadow-sm">
+                    <h5>{{ expert.name }}</h5>
+                    <p>{{ expert.skill }}</p>
+                    <p><b>Solution:</b> {{ expert.solution }}</p>
+                    <form method="post" action="{% url 'hire_expert' expert.id %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="problem" value="{{ request.POST.problem }}">
+                        <button class="btn btn-primary">
+                            🚀 Get Hired
+                        </button>
+                    </form>
+                </div>
+            </div>
+        {% empty %}
+            <p>No experts found</p>
+        {% endfor %}
+    </div>
+
+</body>
+</html>
